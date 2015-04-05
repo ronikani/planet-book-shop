@@ -1,0 +1,18 @@
+
+	<h2>Корзина</h2>
+		<table>
+			<% @cart.line_items.each do |item| %>
+			<tr>
+				<td><%= item.quantity %>&times;</td>
+				<td><%= item.product.title %></td>
+				<td class="item_price"><%= (item.total_price) %> руб</td>
+				</tr>
+				<% end %>
+				<tr class="total_line">
+				<td colspan="2">Итого:</td>
+				<td class="total_cell"><%= (@cart.total_price) %> руб</td>
+			</tr>
+		</table>
+
+	<div><%= link_to "Оплатить", new_order_path,   class: "mebtn clr" %>
+	<%= button_to  'Очистить корзину' , @cart, method: :delete, data: { confirm: 'Вы уверены?' },class: "mebtn" %></div>

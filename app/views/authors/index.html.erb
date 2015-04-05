@@ -1,0 +1,72 @@
+<%if signed_in?%>
+    <% if  current_user.admin? %>
+      <h4 class="column formi">Авторы</h4>
+        <table class="features-table">
+          <thead>
+            <tr>
+              <th>ФИО</th>
+              <th>Дата рождения</th>
+              <th><%= link_to 'Добавить', new_author_path, :class => "add" %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @authors.each do |author| %>
+              <tr>
+                <td class="grey"><%= link_to author.full_name, author %></td>
+                <td class="grey"><%= author.bith_day %></td>
+                <td><%= link_to 'Показать', author %></td>
+                <td><%= link_to 'Редактировать', edit_author_path(author) %></td>
+                <td><%= link_to 'Удалить', author, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <br>
+    <% else %>
+      <h4 class="column formi">Авторы</h4>
+        <div class="column">
+          <ul class="movies-grid no-bullet row">
+            <% @authors.each do |author| %>
+                <li class="large-3 medium-4 small-12 column">
+                  <div class="movie-card padly">
+                    <%= link_to author, class: "poster" do %>
+                        <%= image_tag author.photo.url %>
+                    <% end %>
+                    <div class="movie-info ell glassy-bg padmy padlx">
+                      <div class="title">
+                        <h6><%= author.full_name %></h6>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+  <% else %>
+    <h4 class="column formi">Авторы</h4>
+        <div class="column">
+          <ul class="movies-grid no-bullet row">
+            <% @authors.each do |author| %>
+                <li class="large-3 medium-4 small-12 column">
+                  <div class="movie-card padly">
+                    <%= link_to author, class: "poster" do %>
+                        <%= image_tag author.photo.url %>
+                    <% end %>
+                    <div class="movie-info ell glassy-bg padmy padlx">
+                      <div class="title">
+                        <h6><%= author.full_name %></h6>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+<%end%>
+
+<div class="pages">
+  <%= will_paginate @authors, :class => 'apple_pagination' %>
+</div>
