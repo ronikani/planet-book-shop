@@ -28,6 +28,8 @@ gem 'acts_as_shopping_cart', '~> 0.2.1'
 gem "paperclip"
 gem 'devise'
 gem 'will_paginate', '~> 3.0.6'
+gem 'activemerchant'
+gem 'offsite_payments'
 gem 'dragonfly'
 gem 'bxslider-rails'
 gem 'sunspot_rails'
