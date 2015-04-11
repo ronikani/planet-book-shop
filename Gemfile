@@ -33,6 +33,8 @@ gem 'bxslider-rails'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'thin'
+gem 'puma'
+ gem 'unicorn'
 # Use Unicorn as the app server
 # gem 'unicorn'
 group :production do
