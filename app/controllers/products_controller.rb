@@ -5,7 +5,11 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all.paginate(:page => params[:page], :per_page => 8)
+   @search = Product.search do
+      fulltext params[:search]
+      paginate :page => params[:page] || 1, :per_page => 8
+   end
+    @products = @search.results
   end
 
   # GET /products/1
@@ -64,6 +68,25 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url }
       format.json { head :no_content }
     end
+  end
+
+  def who_bought
+    @product = Product.find(params[:id])
+    @latest_order = @product.orders.order(:updated_at).last
+      if stale?(@latest_order)
+        respond_to do |format|
+          format.atom
+        end
+      end
+  end    
+
+ def search
+    @search = Product.search do
+      fulltext params[:search]
+      facet(:why_author)
+      paginate :page => params[:page] || 1, :per_page => 8
+   end
+     @products = @search.results
   end
 
   private

@@ -11,6 +11,8 @@
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
 
+      <div><%= @current_user_id %></div>
+
       <div class="field">
         <%= f.label :password, "Старыйй пароль" %> <br />
         <%= f.password_field :password, autocomplete: "off" %>

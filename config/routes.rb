@@ -5,13 +5,17 @@ Rails.application.routes.draw do
   resources :carts
   devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   get 'static_pages/home'
-
+  get 'static_pages/sale'
   get 'static_pages/help'
+  get 'static_pages/newbook'
+  resources :searches
+  post 'products/search' => 'products#search', as: 'search_products'
 
-  resources :products
+  resources :products do
+    get :who_bought, on: :member
+  end  
   resources :categories
   resources :authors
-
   resource :paypal_instant_payment_notifications, only: [:create]
 
   # The priority is based upon order of creation: first created -> highest priority.

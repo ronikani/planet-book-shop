@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405174110) do
+ActiveRecord::Schema.define(version: 20150410111709) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "full_name"
@@ -52,9 +52,11 @@ ActiveRecord::Schema.define(version: 20150405174110) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "quantity",   default: 1
+    t.integer  "order_id"
   end
 
   add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id"
+  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id"
 
   create_table "order_transactions", force: :cascade do |t|
@@ -82,6 +84,9 @@ ActiveRecord::Schema.define(version: 20150405174110) do
     t.date     "card_expires_on"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "user_email"
+    t.string   "status"
+    t.string   "phone"
   end
 
   create_table "paypal_instant_payment_notifications", force: :cascade do |t|
@@ -118,6 +123,16 @@ ActiveRecord::Schema.define(version: 20150405174110) do
 
   add_index "products", ["author_id"], name: "index_products_on_author_id"
   add_index "products", ["category_id"], name: "index_products_on_category_id"
+
+  create_table "searches", force: :cascade do |t|
+    t.string   "keywords"
+    t.integer  "category_id"
+    t.integer  "author_id"
+    t.float    "min_price"
+    t.float    "max_price"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

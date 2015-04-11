@@ -1,59 +1,32 @@
-<p id="notice"><%= notice %></p>
+<%if signed_in?%>
+    <h3 class="booking">Заказ</h3>
+    <p class="booking">(<%= @order.status %>)</p>
+    <table class="features-table">
+         <thead>
+           <tr>
+             <th>Название</th>
+             <th>Количество</th>
+             <th>Дата</th>
+             <th>Адрес</th>
+           </tr>
+         </thead>
 
-<p>
-  <strong>New:</strong>
-  <%= @order.new %>
-</p>
+          <% LineItem.where(order_id: @order.id).each do |line_item| %>
+            <% Product.where(id: line_item.product_id).each do |product| %>
+              <tbody>
+                <tr>
+                  <td class="grey"><%= link_to product.title, product %></td>
+                  <td><%= line_item.quantity %></td>
+                  <td><%= @order.created_at %></td>
+                  <td><%= @order.adress %></td>
+                  <% if current_user.admin? %>
+                    <td><%= link_to "Изменить статус заказа", edit_order_path(@order) %></td>
+                  <% end %>  
+                </tr>
+            <% end %>
+          <% end %>
+            </tbody>
+    </table>
 
-<p>
-  <strong>Cart:</strong>
-  <%= @order.cart_id %>
-</p>
-
-<p>
-  <strong>Ip address:</strong>
-  <%= @order.ip_address %>
-</p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @order.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @order.last_name %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @order.country %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @order.city %>
-</p>
-
-<p>
-  <strong>Adress:</strong>
-  <%= @order.adress %>
-</p>
-
-<p>
-  <strong>Indexmail:</strong>
-  <%= @order.indexmail %>
-</p>
-
-<p>
-  <strong>Card type:</strong>
-  <%= @order.card_type %>
-</p>
-
-<p>
-  <strong>Card expires on:</strong>
-  <%= @order.card_expires_on %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+    <%= link_to 'Назад', orders_path %>
+<% end %>

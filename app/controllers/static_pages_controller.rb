@@ -4,4 +4,12 @@ class StaticPagesController < ApplicationController
 
   def help
   end
+
+  def sale
+  	@products = Product.all
+  end
+
+  def newbook
+  	@products = Product.all
+  end
 end

@@ -25,32 +25,29 @@
       </div>
 
       <div class="field">
-        <%= f.label :adress, "Адрес" %><br>
+        <%= f.label :phone, "Номер телефона" %><br>
+        <%= f.text_field :phone %>
+      </div>
+
+      <div class="field">
+        <%= f.label :country, "Страна" %><br>
+        <%= f.text_field :country %>
+      </div>
+
+      <div class="field">
+        <%= f.label :city, "Город" %><br>
+        <%= f.text_field :city %>
+      </div>
+
+      <div class="field">
+        <%= f.label :adress, "Улица и дом" %><br>
         <%= f.text_field :adress %>
       </div>
 
-      <div class="field">
-        <%= f.label :card_type, "Карта" %><br>
-        <%= f.select :card_type, [["Visa", "visa"],["MasterCard", "master"], ["American Express", "american_express"]] %>
-      </div>
-
-      <div class="field">
-        <%= f.label :card_number, "Номер карты" %><br>
-        <%= f.text_field :card_number %>
-      </div>
-
-      <div class="field">
-        <%= f.label :card_verification, "CVV" %><br>
-        <%= f.text_field :card_verification %>
-      </div>
-
-      <div class="field">
-        <%= f.label :card_expires_on  %><br>
-        <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
-      </div>
+      
 
       <div class="actions">
-        <%= f.submit %>
+        <%= f.submit "Оформить"%>
       </div>
 
 

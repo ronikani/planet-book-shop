@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def cart_shop
+  def current_cart
     if !session[:cart_id].nil?
       Cart.find(session[:cart_id])
     else
@@ -21,13 +21,5 @@ class ApplicationController < ActionController::Base
     end
   end
 
-private
 
-  def current_cart
-    Cart.find(session[:cart_id])
-    rescue ActiveRecord::RecordNotFound
-    cart = Cart.create(:user_id => current_user.id)
-    session[:cart_id] = cart.id
-    cart
-  end
 end

@@ -23,6 +23,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 # Use ActiveModel has_secure_password
+gem 'acts_as_shopping_cart', '~> 0.2.1'
 # gem 'bcrypt', '~> 3.1.7'
 gem "paperclip"
 gem 'devise'
@@ -31,6 +32,8 @@ gem 'activemerchant'
 gem 'offsite_payments'
 gem 'dragonfly'
 gem 'bxslider-rails'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 # Use Unicorn as the app server
 # gem 'unicorn'
 group :production do

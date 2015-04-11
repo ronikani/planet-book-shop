@@ -1,4 +1,4 @@
-
+<p><% link_to "Поиск", new_search_path %></p>
 <%if signed_in?%>
   <% if  current_user.admin? %>
      <h4 class="column formi">Каталог</h4>
@@ -33,17 +33,17 @@
       <h4 class="column formi">Каталог</h4>
         <div class="column">
           <ul class="movies-grid no-bullet row">
-              <% @products.each do |producti| %>
+              <% @products.each do |product| %>
                   <li class="large-3 medium-4 small-12 column pages">
                     <div class="movie-card padly">
-                      <%= link_to producti, class: "poster" do %>
-                          <%= image_tag producti.photo.url %>
+                      <%= link_to product, class: "poster" do %>
+                          <%= image_tag product.photo.url %>
                       <% end %>
                       <div class="movie-info ell glassy-bg padmy padlx">
                         <div class="title">
-                          <h6><%= producti.title %></h6>
+                          <h6><%= product.title %></h6>
                         </div>
-                        <p class="left price label movie-label radius"> <%= producti.price %> руб.</p>
+                        <p class="left price label movie-label radius"> <%= product.price %> руб.</p>
                       </div>
                     </div>
                   </li>
@@ -57,17 +57,17 @@
      <h4 class="column formi">Каталог</h4>
       <div class="column ">
           <ul class="movies-grid no-bullet row">
-            <% @products.each do |producti| %>
+            <% @products.each do |product| %>
                 <li class="large-3 medium-4 small-12 column pages" >
                   <div class="movie-card padly">
-                    <%= link_to producti, class: "poster" do %>
-                        <%= image_tag producti.photo.url %>
+                    <%= link_to product, class: "poster" do %>
+                        <%= image_tag product.photo.url %>
                     <% end %>
                     <div class="movie-info ell glassy-bg padmy padlx">
                       <div class="title">
-                        <h6><%= producti.title %></h6>
+                        <h6><%= product.title %></h6>
                       </div>
-                      <p class="left price label movie-label radius"> <%= producti.price %> руб.</p>
+                      <p class="left price label movie-label radius"> <%= product.price %> руб.</p>
                     </div>
                   </div>
                 </li>

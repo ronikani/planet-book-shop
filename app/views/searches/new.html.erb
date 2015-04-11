@@ -1,0 +1,22 @@
+<h1> Поиск </h1>
+
+<%= form_for @search do |f| %>
+	<div class="field">
+		<%= f.label :keywords %><br/>
+		<%= f.text_field :keywords %>
+	</div>
+	<div class="field">
+		<%= f.label :category_id %><br/>
+		<%= f.collection_select :category_id, Category.order(:title), :id, :title, include_blank: true %>	
+	</div>
+	<div class="field">
+		<%= f.label :author_id %><br/>
+		<%= f.collection_select :author_id, Author.order(:full_name), :id, :full_name, include_blank: true %>	
+	</div>	
+	<div class="field">
+		<%= f.label :min_price, "Цена" %><br/>
+		<%= f.text_field :min_price, size: 10 %>
+		<%= f.text_field :max_price, size: 10 %>
+	</div>
+	<div class="action"><%= f.submit "search" %></div>
+<% end %>		

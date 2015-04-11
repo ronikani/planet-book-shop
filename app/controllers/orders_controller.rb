@@ -1,10 +1,14 @@
 class OrdersController < ApplicationController
+    include CurrentCart
+  before_action :set_cart, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  #before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
   # GET /orders.json
   def index
     @orders = Order.all
+    @line_items = LineItem.all
   end
 
   # GET /orders/1
@@ -14,6 +18,11 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+    if @cart.line_items.empty?
+      redirect_to product_url, notice: "Your cart is empty"
+    return
+  end
+
     @order = Order.new
   end
 
@@ -24,17 +33,34 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-     @order = current_cart.build_order(order_params)
-     @order.ip_address = request.remote_ip
-      if @order.save
-        if @order.purchase
-          render :action => "success"
-        else
-          render :action => "failure"
-        end
-      else
-        render :action => 'new'
-      end
+     @order =  Order.new(order_params)
+     @order.add_line_items_from_cart(@cart)
+     @order.user_email    = current_user.email
+     @order.status    = "Заказ обрабатывается"
+
+    respond_to do |format|
+    if @order.save
+      Cart.destroy(session[:cart_id])
+      session[:cart_id] = nil
+    format.html { redirect_to products_path, notice:'Thank you for your order.' }
+    format.json { render action: 'show', status: :created,location: @order }
+    else
+      @cart = current_cart
+    format.html { render action: 'new' }
+    format.json { render json: @order.errors,status: :unprocessable_entity }
+    end
+  end
+    # @order = current_cart.build_order(order_params)
+     
+    # @order.cart_id       = current_cart.id
+    # @current_cart        = Cart.new(cart_params)
+    #  if @order.save
+    #   # if @order.purchase
+    #      render :action => "success"
+    #    
+    #  else
+    #    render :action => 'new'
+    #  end
   end
 
   # PATCH/PUT /orders/1
@@ -69,6 +95,10 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:cart_id, :ip_address, :first_name, :last_name, :country, :city, :adress, :indexmail, :card_type, :card_expires_on)
+      params.require(:order).permit(:first_name, :last_name, :country, :city, :adress, :phone, :status)
+    end
+
+    def cart_params
+      params[:cart]
     end
 end
