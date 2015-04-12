@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+#ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use sqlite3 as the database for Active Record
@@ -34,7 +34,8 @@ gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'thin'
 gem 'puma'
- gem 'unicorn'
+gem 'unicorn'
+gem 'yaml_db', :git => 'git://github.com/ludicast/yaml_db.git'
 # Use Unicorn as the app server
 # gem 'unicorn'
 group :production do

@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/ludicast/yaml_db.git
+  revision: cecfdfc8d6d3b2adbca26b9fc416d93a40dd2348
+  specs:
+    yaml_db (0.3.0)
+      rails (>= 3.0, < 4.3)
+      rake (>= 0.8.7)
+
+GIT
   remote: https://github.com/stripe/stripe-ruby
   revision: cee76d05cab54e743a6f6dceef4aab2249295c5b
   specs:
@@ -259,3 +267,4 @@ DEPENDENCIES
   unicorn
   web-console (~> 2.0)
   will_paginate (~> 3.0.6)
+  yaml_db!
